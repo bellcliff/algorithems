@@ -48,7 +48,38 @@ until there is only 1 sublist remaining. This will be the sorted list.
         self.L = msort(self.L)
 
     def v2(self):
-        '''buttom up'''
+        '''buttom up '''
+        def merge(A, iL, iR, iEnd, B):
+            #print 'L:%d,R:%d,E:%d' % (iL, iR, iEnd)
+            i0 = iL
+            i1 = iR
+            for j in range(iL, iEnd):
+                # If left list head exists and is <= existing right list head
+                #print 'i0:%d, i1:%d' % (A[i0], A[i1])
+                if i0 < iR and (i1 >= iEnd or A[i0] <= A[i1]):
+                    B[j] = A[i0]
+                    i0 += 1
+                else:
+                    B[j] = A[i1]
+                    i1 += 1
+
+        def bsort(L):
+            B = list(L)
+            width = 1
+            n = len(L)
+            while width < n:
+                i = 0
+                while i < n:
+                    merge(L, i, min(i + width, n), min(i + 2 * width, n), B)
+                    i += 2 * width
+                width = 2 * width
+                # Now work array B is full of runs of length 2*width
+                for j in range(n):
+                    L[j] = B[j]
+                # Now array A is full of runs of length 2*width
+            return L
+
+        self.L = list(bsort(self.L))
 
 sort = MergeSorting()
 sort.run()
