@@ -45,6 +45,40 @@ class HeapSorting(TestStuf):
             # duplicate the heapify and sift
             end -= 1
             sift(L, 0, end)
+            
+    def v2(self):
+        ''''''
+        def LEFT(i):
+            return 2 * i + 1
+        def RIGHT(i):
+            return 2 * i + 2
+        def PARENT(i):
+            return i / 2
+        def max_heap(A, i):
+            '''max-heap'''
+            l = LEFT(i)
+            r = RIGHT(i)            
+            if l < len(A) and A[l] > A[i]:
+                largest = l
+            else: largest = i
+            if r < len(A) and A[r] > A[largest]:
+                largest = r
+            if largest != i:
+                A[i], A[largest] = A[largest], A[i]
+                max_heap(A, largest)
+                
+        def build_max_heap(A):
+            start = len(A)/2
+            while start>0:
+                max_heap(A, start)
+                
+        L = self.L
+        count = len(L)
+        end = count
+        while end > 0:
+            max_heap(L, 0, end)            
+            L[end-1], L[0] = L[0], L[end-1]
+            end = end-1
 
 
 heap = HeapSorting()

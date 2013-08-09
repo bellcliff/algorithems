@@ -54,9 +54,9 @@ test failure : %(i1)d[%(v1)d] > %(i2)d[%(v2)d]  ''' % {
             self.L = list(L)
             start_time = time.time()
             getattr(self, m)()
-            end_time = time.time()
-            self.test()
+            end_time = time.time()            
             print '%s : %s' % (m, str(self.L))
+            self.test()
             times.append('%s used %s' % (m, str(end_time - start_time)))
         for t in times:
             print t
